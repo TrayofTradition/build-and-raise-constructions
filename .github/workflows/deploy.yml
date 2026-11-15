@@ -1,3 +1,4 @@
+
 name: Deploy Build and Raise Website
 
 on:
@@ -19,26 +20,20 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: BUILD_AND_RAISE/identity-illumine-hub-main
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-          cache-dependency-path: BUILD_AND_RAISE/identity-illumine-hub-main/package-lock.json
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
 
       - name: Install dependencies
-        run: npm ci
+        working-directory: BUILD_AND_RAISE/identity-illumine-hub-main
+        run: bun install --frozen-lockfile
 
       - name: Build website
-        run: npm run build
+        working-directory: BUILD_AND_RAISE/identity-illumine-hub-main
+        run: bun run build
 
       - name: Upload website
         uses: actions/upload-pages-artifact@v3
