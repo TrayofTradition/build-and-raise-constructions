@@ -1,4 +1,7 @@
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
 export default defineConfig({
   base: '/build-and-raise-constructions/',
-  // Keep your existing plugins and other settings
+  plugins: [react()],
 })
